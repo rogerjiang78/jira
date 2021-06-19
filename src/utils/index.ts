@@ -24,7 +24,6 @@ export const useMount = (callback: () => void) => {
   }, []);
 };
 
-// 后面用泛型来规范类型
 export const useDebounce = <V>(value: V, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -36,4 +35,18 @@ export const useDebounce = <V>(value: V, delay?: number) => {
   }, [value, delay]);
 
   return debouncedValue;
+};
+
+export const useArray = <T>(initialValue: T[]) => {
+  const [value, setValue] = useState(initialValue);
+  return {
+    value,
+    add: (item: T) => setValue([...value, item]),
+    clear: () => setValue([]),
+    removeIndex: (index: number) => {
+      let newArr: T[] = [...value];
+      newArr.splice(index, 1);
+      setValue(newArr);
+    },
+  };
 };
