@@ -1,6 +1,6 @@
 import React from "react";
 
-interface User {
+export interface User {
   id: number;
   name: string;
   email: string;
@@ -9,7 +9,7 @@ interface User {
   token: string;
 }
 
-interface SearchPanelProps {
+export interface SearchPanelProps {
   users: User[];
   param: {
     name: string;
