@@ -4,6 +4,7 @@ interface Project {
   id: number;
   name: string;
   personId: number;
+  ownerId: number;
   pin: boolean;
   organization: string;
   created: number;
@@ -11,6 +12,7 @@ interface Project {
 
 interface User {
   id: number;
+  ownerId: number;
   name: string;
   email: string;
   title: string;
@@ -34,9 +36,9 @@ export default function List({ list, users }: ListTypes) {
       </thead>
       <tbody>
         {list.map((project) => (
-          <tr key={project.id}>
+          <tr key={project.personId}>
             <td>{project.name}</td>
-            <td>{users.find((user) => user.id === project.personId)?.name || "未知"}</td>
+            <td>{users.find((user) => user.id === project.id)?.name || "未知"}</td>
           </tr>
         ))}
       </tbody>

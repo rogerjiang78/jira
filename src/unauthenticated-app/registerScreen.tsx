@@ -4,7 +4,7 @@ import React, { FormEvent } from "react";
 // const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function RegisterScreen() {
-  const { user, register } = useAuth();
+  const { register } = useAuth();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

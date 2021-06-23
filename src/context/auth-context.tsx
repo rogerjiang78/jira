@@ -1,7 +1,17 @@
 import React, { ReactNode, useContext, useState } from "react";
 import { User } from "screens/project-list/search-panel";
+import { http } from "utils/http";
 import * as Auth from "../utils/auth-provider";
 
+export const bootstrapUser = async () => {
+  let user = null;
+  const token = Auth.getToken();
+  if (token) {
+    const data = await http("me", { token });
+    user = data.user;
+  }
+  return user;
+};
 interface AuthForm {
   username: string;
   password: string;

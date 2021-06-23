@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import qs from "querystring";
+// import qs from "querystring";
 import SearchPanel from "./search-panel";
 import List from "./list";
 import { cleanObject, useMount, useDebounce } from "../../utils";
+import { useHttp } from "utils/http";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+// const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function ProjectListScreen() {
   const [param, setParam] = useState({
@@ -14,23 +15,27 @@ export default function ProjectListScreen() {
   const [users, setUsers] = useState([]);
   const [list, setList] = useState([]);
   let debounceParam = useDebounce(param, 500);
+  const client = useHttp();
 
   useEffect(() => {
-    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(
-      async (response) => {
-        if (response.ok) {
-          setList(await response.json());
-        }
-      }
-    );
-  }, [debounceParam]);
+    client("projects", { data: cleanObject(debounceParam) }).then((list) => setList(list));
+    // fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(
+    //   async (response) => {
+    //     if (response.ok) {
+    //       setList(await response.json());
+    //     }
+    //   }
+    // );
+  }, [client, debounceParam]);
 
   useMount(() => {
-    fetch(`${apiUrl}/users`).then(async (response) => {
-      if (response.ok) {
-        setUsers(await response.json());
-      }
-    });
+    client("users").then(setUsers);
+    // fetch(`${apiUrl}/users`).then(
+    // async (response) => {
+    //   if (response.ok) {
+    //    setUsers(await response.json());
+    //   }
+    // });
   });
   return (
     <div>
