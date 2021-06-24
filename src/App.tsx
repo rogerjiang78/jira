@@ -3,7 +3,7 @@ import { useAuth } from "context/auth-context";
 import React from "react";
 import { UnauthenticatedApp } from "unauthenticated-app";
 
-import "./App.css";
+import "./App.less";
 
 function App() {
   const { user } = useAuth();

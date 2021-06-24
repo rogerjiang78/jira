@@ -1,3 +1,4 @@
+import { Table } from "antd";
 import React from "react";
 
 interface Project {
@@ -26,22 +27,22 @@ interface ListTypes {
 }
 
 export default function List({ list, users }: ListTypes) {
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>名称</th>
-          <th>负责人</th>
-        </tr>
-      </thead>
-      <tbody>
-        {list.map((project) => (
-          <tr key={project.personId}>
-            <td>{project.name}</td>
-            <td>{users.find((user) => user.id === project.id)?.name || "未知"}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+  const columns = [
+    {
+      title: "名称",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "负责人",
+      // dataIndex: 'age',
+      // key: 'age',
+      render(project: Project) {
+        return (
+          <span>{users.find((user: User) => user.id === project.personId)?.name || "未知"}</span>
+        );
+      },
+    },
+  ];
+  return <Table pagination={false} columns={columns} dataSource={list} />;
 }

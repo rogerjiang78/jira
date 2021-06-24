@@ -1,5 +1,6 @@
 import React, { ReactNode, useContext, useState } from "react";
 import { User } from "screens/project-list/search-panel";
+import { useMount } from "utils";
 import { http } from "utils/http";
 import * as Auth from "../utils/auth-provider";
 
@@ -31,7 +32,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = (form: AuthForm) => Auth.login(form).then((user) => setUser(user));
   const register = (form: AuthForm) => Auth.register(form).then((user) => setUser(user));
   const logout = () => Auth.logout().then(() => setUser(null));
-
+  useMount(() => {
+    bootstrapUser().then(setUser);
+  });
   return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />;
 }
 
