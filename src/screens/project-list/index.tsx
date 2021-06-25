@@ -26,7 +26,8 @@ export default function ProjectListScreen() {
     //     }
     //   }
     // );
-  }, [client, debounceParam]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debounceParam]);
 
   useMount(() => {
     client("users").then(setUsers);
@@ -39,6 +40,7 @@ export default function ProjectListScreen() {
   });
   return (
     <div>
+      <h1>项目列表</h1>
       <SearchPanel param={param} setParam={setParam} users={users} />
       <List list={list} users={users} />
     </div>
