@@ -6,7 +6,7 @@ import { Row } from "components/lib";
 import { Button } from "antd";
 
 export const AuthenticatedApp = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   return (
     <Container>
       <Header between={true}>
@@ -16,7 +16,7 @@ export const AuthenticatedApp = () => {
           <h2>用户</h2>
         </HeaderLeft>
         <HeaderRight>
-          <Button onClick={() => logout()}>Logout</Button>
+          <Button onClick={() => logout()}>hi, {user?.name}</Button>
         </HeaderRight>
       </Header>
       <Main>
